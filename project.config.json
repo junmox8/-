@@ -4,7 +4,7 @@
     "description": "土建",
     "appid": "wx67b518c43ba2ccb3",
     "setting": {
-        "urlCheck": true,
+        "urlCheck": false,
         "es6": false,
         "enhance": true,
         "postcss": false,

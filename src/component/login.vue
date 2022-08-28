@@ -42,49 +42,46 @@ export default {
       default: false
     }
   },
-  emits: ["closeLoginPopup"],
+  emits: ["closeLoginPopup", "sendAvatarAndName"],
   setup(props, { emit }) {
     // const store = useStore();
     const isReadContent = ref(false);
     const doLogin = async () => {
-      //   if (isReadContent.value) {
-      //     const { errMsg, code } = await Taro.login();
-      //     if (errMsg === "login:ok") {
-      //       const data = await post({
-      //         url: "/user/login",
-      //         params: {
-      //           code
-      //         },
-      //         showLoading: true
-      //       });
-      //       if (data.success) {
-      //         Taro.setStorageSync("token", data.data);
-      //         const user = await get({
-      //           url: "/user/me"
-      //         });
-      //         if (user.success) {
-      //           store.setUserBasicInfo(user.data);
-      //         }
-      //         emit("closeLoginPopup");
-      //         store.setSelected(0);
-      //         Taro.switchTab({
-      //           url: "/pages/index/index"
-      //         });
-      //       }
-      //     }
-      //   } else {
-      //     Taro.showToast({
-      //       title: "请勾选相关协议",
-      //       icon: "error",
-      //       duration: 2000
-      //     });
-      //   }
+      const { code } = await Taro.login();
+      const result = await post({
+        url: "/volunteer/front/user/pass/login?code=" + code,
+        params: null,
+        showLoading: true
+      });
+      if (result.data.token) {
+        Taro.setStorageSync("token", result.data.token);
+        emit("closeLoginPopup");
+        Taro.showModal({
+          title: "温馨提示",
+          content: "授权登录才能正常使用小程序",
+          success: res => {
+            if (res.confirm) {
+              Taro.getUserProfile({
+                lang: "zh_CN",
+                desc: "获取你的昵称、头像、地区及性别",
+                success: response => {
+                  emit("sendAvatarAndName", {
+                    avatar: response.userInfo.avatarUrl,
+                    name: response.userInfo.nickName
+                  });
+                },
+                fail: () => {
+                  //拒绝授权
+                  console.error("您拒绝了请求");
+                  return;
+                }
+              });
+            }
+          }
+        });
+      }
     };
-    const goUserPrivacyProtocol = () => {
-      //   Taro.navigateTo({
-      //     url: "/pages/my/protocol/index"
-      //   });
-    };
+    const goUserPrivacyProtocol = () => {};
     return {
       doLogin,
       isReadContent,

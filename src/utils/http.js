@@ -37,7 +37,7 @@ const send = async (url, data, method) => {
     const {
       data: { success, data: responseData, errorMsg }
     } = await Taro.request({
-      url: process.env.apiURL + url,
+      url: "http://43.142.147.49:5200" + url,
       method,
       data,
       dataType: "json",

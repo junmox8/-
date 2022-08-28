@@ -3,13 +3,14 @@
     <loginPopup
       :isDisplayLoginPopup="isDisplayLoginPopup"
       @closeLoginPopup="closeLoginPopup"
+      @sendAvatarAndName="sendAvatarAndName"
       ref="login"
     ></loginPopup>
     <div class="my-header-container">
       <div class="header-avatar-container">
-        <img src="https://ps.ssl.qhimg.com/t013f5efcfb02eba705.jpg" alt="" />
+        <img :src="avatar" alt="" />
       </div>
-      <div class="header-name-container">Young</div>
+      <div class="header-name-container">{{ name }}</div>
     </div>
     <div class="my-table-container">
       <div
@@ -73,15 +74,7 @@ export default {
     if (this.isDisplayLoginPopup) return;
     const token = Taro.getStorageSync("token");
     if (token) {
-      // const data = await get({
-      //   url: "/user/me",
-      // });
-      // if (data.success) {
-      //   this.store.setUserBasicInfo(data.data);
-      // }
-      // else {
-      //   this.isDisplayLoginPopup = true;
-      // }
+      this.isDisplayLoginPopup = false;
     } else {
       this.isDisplayLoginPopup = true;
     }
@@ -91,18 +84,34 @@ export default {
   },
   setup() {
     let isDisplayLoginPopup = ref(false);
+    let avatar = ref(
+      Taro.getStorageSync("avatar")
+        ? Taro.getStorageSync("avatar")
+        : "https://ps.ssl.qhimg.com/t013f5efcfb02eba705.jpg"
+    );
+    let name = ref(
+      Taro.getStorageSync("name") ? Taro.getStorageSync("name") : "游客"
+    );
     const jumpToDetail = () => {
       Taro.navigateTo({
         url: "/pages/handUpFankui/index"
       });
     };
     const closeLoginPopup = () => {
-      isDisplayLoginPopup.value = true;
+      isDisplayLoginPopup.value = false;
+    };
+    const sendAvatarAndName = obj => {
+      Taro.setStorageSync("name", obj.name);
+      Taro.setStorageSync("avatar", obj.avatar);
+      (name.value = obj.name), (avatar.value = obj.avatar);
     };
     return {
       isDisplayLoginPopup,
       jumpToDetail,
-      closeLoginPopup
+      closeLoginPopup,
+      avatar,
+      name,
+      sendAvatarAndName
     };
   }
 };
