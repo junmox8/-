@@ -42,7 +42,8 @@ const send = async (url, data, method) => {
       data,
       dataType: "json",
       header: {
-        Authorization: "Bearer " + Taro.getStorageSync("token") || ""
+        Authorization: "Bearer " + Taro.getStorageSync("token") || "",
+        token: Taro.getStorageSync("token") || ""
       }
     });
     if (errorMsg) {

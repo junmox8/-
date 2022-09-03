@@ -20,7 +20,9 @@
         <div style="color:#313131;font-size:15px;font-weight:500">
           填写问卷
         </div>
-        <div style="font-size:18px;width:100%;text-align:center">0</div>
+        <div style="font-size:18px;width:100%;text-align:center">
+          {{ naireNumber }}
+        </div>
       </div>
       <div class="line">
         <div style="width:100%;height:40%;background-color:#EFEFEF"></div>
@@ -29,7 +31,9 @@
         <div style="color:#313131;font-size:15px;font-weight:500">
           提交反馈
         </div>
-        <div style="font-size:18px;width:100%;text-align:center">0</div>
+        <div style="font-size:18px;width:100%;text-align:center">
+          {{ fankuiNumber }}
+        </div>
       </div>
       <div class="line">
         <div style="width:100%;height:40%;background-color:#EFEFEF"></div>
@@ -39,18 +43,35 @@
         style="border-top-right-radius:10px;border-bottom-right-radius:10px"
       >
         <div style="color:#313131;font-size:15px;font-weight:500">
-          提交招募
+          提交申请
         </div>
-        <div style="font-size:18px;width:100%;text-align:center">0</div>
+        <div style="font-size:18px;width:100%;text-align:center">
+          {{ applyNumber }}
+        </div>
       </div>
     </div>
     <div style="width:100%;height:50px;background-color:transparent"></div>
     <nut-cell-group>
-      <nut-cell icon="edit" title="我的问卷" is-link></nut-cell>
-      <nut-cell icon="clock" title="我的申请" is-link></nut-cell
-      ><nut-cell icon="ask2" title="我的反馈" is-link></nut-cell
+      <nut-cell
+        icon="edit"
+        @click="jumpTo(1)"
+        title="我的问卷"
+        is-link
+      ></nut-cell>
+      <nut-cell
+        icon="clock"
+        @click="jumpTo(2)"
+        title="我的申请"
+        is-link
+      ></nut-cell
+      ><nut-cell
+        icon="ask2"
+        @click="jumpTo(3)"
+        title="我的反馈"
+        is-link
+      ></nut-cell
       ><nut-cell icon="my" title="关于我们" is-link></nut-cell
-      ><nut-cell icon="close" title="退出登录" is-link></nut-cell>
+      ><nut-cell icon="close" @click="exit" title="退出登录" is-link></nut-cell>
     </nut-cell-group>
     <nut-button
       size="small"
@@ -69,12 +90,25 @@
 import loginPopup from "../../component/login.vue";
 import Taro from "@tarojs/taro";
 import { reactive, toRefs, ref } from "vue";
+import { get, post } from "../../utils/http";
 export default {
   async onShow() {
     if (this.isDisplayLoginPopup) return;
     const token = Taro.getStorageSync("token");
     if (token) {
       this.isDisplayLoginPopup = false;
+      const result2 = await get({
+        url: "/volunteer/front/answer/count"
+      });
+      this.naireNumber = result2.data;
+      const result3 = await get({
+        url: "/volunteer/front/feedback/getFeedbacks"
+      });
+      this.fankuiNumber = result3.data.length;
+      const result4 = await get({
+        url: "/volunteer/front/recruit/getApplies"
+      });
+      this.applyNumber = result4.data ? result4.data.length : 0;
     } else {
       this.isDisplayLoginPopup = true;
     }
@@ -92,6 +126,9 @@ export default {
     let name = ref(
       Taro.getStorageSync("name") ? Taro.getStorageSync("name") : "游客"
     );
+    let naireNumber = ref(0);
+    let fankuiNumber = ref(0);
+    let applyNumber = ref(0);
     const jumpToDetail = () => {
       Taro.navigateTo({
         url: "/pages/handUpFankui/index"
@@ -100,10 +137,35 @@ export default {
     const closeLoginPopup = () => {
       isDisplayLoginPopup.value = false;
     };
-    const sendAvatarAndName = obj => {
+    const sendAvatarAndName = async obj => {
       Taro.setStorageSync("name", obj.name);
       Taro.setStorageSync("avatar", obj.avatar);
       (name.value = obj.name), (avatar.value = obj.avatar);
+      naireNumber.value = obj.naireNumber;
+      fankuiNumber.value = obj.fankuiNumber;
+      applyNumber.value = obj.applyNumber;
+      const result = await post({
+        url:
+          "/volunteer/front/user/UInfo?open_id=" +
+          Taro.getStorageSync("openId") +
+          "&name=" +
+          obj.name +
+          "&headImg=" +
+          obj.avatar,
+        params: null,
+        showLoading: false
+      });
+    };
+    const exit = () => {
+      Taro.removeStorageSync("token");
+      name.value = "游客";
+      avatar.value = "https://ps.ssl.qhimg.com/t013f5efcfb02eba705.jpg";
+      isDisplayLoginPopup.value = true;
+    };
+    const jumpTo = i => {
+      if (i == 1) Taro.navigateTo({ url: "../myNaire/index?id=1" });
+      if (i == 2) Taro.navigateTo({ url: "../myApply/index?id=1" });
+      if (i == 3) Taro.navigateTo({ url: "../myFankui/index?id=1" });
     };
     return {
       isDisplayLoginPopup,
@@ -111,7 +173,12 @@ export default {
       closeLoginPopup,
       avatar,
       name,
-      sendAvatarAndName
+      sendAvatarAndName,
+      exit,
+      jumpTo,
+      naireNumber,
+      fankuiNumber,
+      applyNumber
     };
   }
 };

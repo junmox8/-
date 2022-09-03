@@ -2274,6 +2274,11 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
+"@xmldom/xmldom@^0.8.2":
+  "integrity" "sha512-+R0juSseERyoPvnBQ/cZih6bpF7IpCXlWbHRoCRzYzqpz6gWHOgf8o4MOEf6KBVuOyqU+gCNLkCWVIJAro8XyQ=="
+  "resolved" "https://registry.npmmirror.com/@xmldom/xmldom/-/xmldom-0.8.2.tgz"
+  "version" "0.8.2"
+
 "@xtuc/ieee754@^1.2.0":
   "integrity" "sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA=="
   "resolved" "https://registry.npmmirror.com/@xtuc/ieee754/-/ieee754-1.2.0.tgz"
@@ -4379,6 +4384,13 @@
   "resolved" "https://registry.npmmirror.com/core-util-is/-/core-util-is-1.0.2.tgz"
   "version" "1.0.2"
 
+"cos-js-sdk-v5@^1.4.1":
+  "integrity" "sha512-Rv9piC2zvgcfYOhoh2ykkWrqFNC4hEICJqq+lsYc5R1glIEYzcG4BiTCfe9moIkktpjyg5mSKGXK2c6F+8xdmg=="
+  "resolved" "https://registry.npmmirror.com/cos-js-sdk-v5/-/cos-js-sdk-v5-1.4.1.tgz"
+  "version" "1.4.1"
+  dependencies:
+    "@xmldom/xmldom" "^0.8.2"
+
 "cosmiconfig@^5.0.0":
   "integrity" "sha512-H65gsXo1SKjf8zmrJ67eJk8aIRKV5ff2D4uKZIBZShbhGSpEmsQOPW/SKMKYhSTrqR7ufy6RP69rPogdaPh/kA=="
   "resolved" "https://registry.npmmirror.com/cosmiconfig/-/cosmiconfig-5.2.1.tgz"
@@ -4688,6 +4700,11 @@
     "abab" "^2.0.3"
     "whatwg-mimetype" "^2.3.0"
     "whatwg-url" "^8.0.0"
+
+"dayjs@^1.11.5":
+  "integrity" "sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA=="
+  "resolved" "https://registry.npmmirror.com/dayjs/-/dayjs-1.11.5.tgz"
+  "version" "1.11.5"
 
 "de-indent@^1.0.2":
   "integrity" "sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg=="
@@ -10257,10 +10274,10 @@
   "resolved" "https://registry.npmmirror.com/pify/-/pify-4.0.1.tgz"
   "version" "4.0.1"
 
-"pinia@^2.0.17":
-  "integrity" "sha512-AtwLwEWQgIjofjgeFT+nxbnK5lT2QwQjaHNEDqpsi2AiCwf/NY78uWTeHUyEhiiJy8+sBmw0ujgQMoQbWiZDfA=="
-  "resolved" "https://registry.npmmirror.com/pinia/-/pinia-2.0.17.tgz"
-  "version" "2.0.17"
+"pinia@^2.0.21":
+  "integrity" "sha512-6ol04PtL29O0Z6JHI47O3JUSoyOJ7Og0rstXrHVMZSP4zAldsQBXJCNF0i/H7m8vp/Hjd/CSmuPl7C5QAwpeWQ=="
+  "resolved" "https://registry.npmmirror.com/pinia/-/pinia-2.0.21.tgz"
+  "version" "2.0.21"
   dependencies:
     "@vue/devtools-api" "^6.2.1"
     "vue-demi" "*"
@@ -10752,6 +10769,11 @@
     "parse-asn1" "^5.0.0"
     "randombytes" "^2.0.1"
     "safe-buffer" "^5.1.2"
+
+"pubsub-js@^1.9.4":
+  "integrity" "sha512-hJYpaDvPH4w8ZX/0Fdf9ma1AwRgU353GfbaVfPjfJQf1KxZ2iHaHl3fAUw1qlJIR5dr4F3RzjGaWohYUEyoh7A=="
+  "resolved" "https://registry.npmmirror.com/pubsub-js/-/pubsub-js-1.9.4.tgz"
+  "version" "1.9.4"
 
 "pump@^2.0.0":
   "integrity" "sha512-ruPMNRkN3MHP1cWJc9OWr+T/xDP0jhXYCLfJcBuX54hhfIBnaQmAUMfDcG4DM5UMWByBbJY69QSphm3jtDKIkA=="

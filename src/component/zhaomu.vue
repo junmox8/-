@@ -1,37 +1,45 @@
 <template>
   <div class="zhaomu-container" @click="jumpToDetail">
-    <img
-      style="width:100%;height:170px"
-      src="https://ps.ssl.qhimg.com/t013f5efcfb02eba705.jpg"
-      alt=""
-    />
+    <img style="width:100%;height:170px" :src="img" alt="" />
     <div class="zhaomu-content-container">
-      <div class="zhaomu-title">相应撒打算嗲撒打算</div>
+      <div class="zhaomu-title">{{ title }}</div>
       <div class="zhaomu-address">
         <nut-icon name="location2"></nut-icon>
-        <div>asdasdasd</div>
+        <div>{{ location }}</div>
       </div>
       <div class="zhaomu-time">
         <nut-icon name="clock"></nut-icon>
-        <div>2022-08-06</div>
+        <div :style="{ fontSize: '13px' }">{{ time }}</div>
       </div>
       <div class="zhaomu-tag">
-        <nut-tag type="success">进行中</nut-tag>
+        <nut-tag v-if="chaoguo == false" type="success">进行中</nut-tag>
+        <nut-tag v-if="chaoguo == true" type="danger">已截止</nut-tag>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
 import Taro from "@tarojs/taro";
+import dayjs from "dayjs";
 export default {
-  setup() {
+  props: ["img", "id", "location", "title", "time"],
+  created() {
+    // this.time.substring(20, this.time.length)
+    const time = dayjs().format("YYYY-MM-DD HH:mm:ss");
+    if (time > this.time.substring(20, this.time.length)) this.chaoguo = true;
+    else this.chaoguo = false;
+  },
+  setup(props) {
+    let chaoguo = ref(false); //是否超时
     let jumpToDetail = () => {
       Taro.navigateTo({
-        url: "/pages/zhaomudetail/index"
+        url: "/pages/zhaomudetail/index?id=" + props.id
       });
     };
     return {
+      chaoguo,
       jumpToDetail
     };
   }

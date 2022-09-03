@@ -35,6 +35,7 @@
     </div>
     <div class="zhaomudetail-bottom">
       <nut-button
+        @click="baoming"
         shape="square"
         style="width:100%;height:100%;line-height:50px;text-align:center;background-color:#FA4419;color:#fff;font-size:16px"
         >立即报名</nut-button
@@ -44,7 +45,33 @@
 </template>
 
 <script>
-export default {};
+import Taro from "@tarojs/taro";
+import { reactive, toRefs, ref } from "vue";
+import { get, post } from "../../utils/http";
+import qs from "qs";
+export default {
+  async created() {
+    this.id = qs.parse(this.tid.slice(25)).id;
+    // const result = await get({
+    //   url:
+    //     "/volunteer/front/recruit/getApplyById?applyId=" +
+    //     qs.parse(this.tid.slice(25)).id
+    // });
+    // console.log(result);
+  },
+  setup() {
+    const id = ref(0);
+    const baoming = () => {
+      Taro.navigateTo({
+        url: "../handUpZhaomu/index?id=" + id.value
+      });
+    };
+    return {
+      id,
+      baoming
+    };
+  }
+};
 </script>
 
 <style>

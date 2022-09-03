@@ -5,7 +5,12 @@ export default defineAppConfig({
     "pages/find/index",
     "pages/wenjuandetail/index",
     "pages/zhaomudetail/index",
-    "pages/handUpFankui/index"
+    "pages/handUpFankui/index",
+    "pages/myApply/index",
+    "pages/myFankui/index",
+    "pages/myNaire/index",
+    "pages/handUpZhaomu/index",
+    "pages/myNaireDetail/index"
   ],
   window: {
     backgroundTextStyle: "light",

@@ -7,19 +7,8 @@
         pagination-color="#426543"
         auto-play="3000"
       >
-        <nut-swiper-item>
-          <img
-            style="width:100%;"
-            src="https://storage.360buyimg.com/jdc-article/fristfabu.jpg"
-            alt=""
-          />
-        </nut-swiper-item>
-        <nut-swiper-item>
-          <img
-            style="width:100%;"
-            src="https://storage.360buyimg.com/jdc-article/fristfabu.jpg"
-            alt=""
-          />
+        <nut-swiper-item v-for="(item, index) in imgs" :key="index">
+          <img style="width:100%;" :src="item" alt="" />
         </nut-swiper-item>
       </nut-swiper>
     </div>
@@ -42,22 +31,42 @@
         </div>
       </div>
       <div class="tuiwen-content-container">
-        <tuiwen></tuiwen>
-        <tuiwen></tuiwen>
-        <tuiwen></tuiwen>
+        <tuiwen
+          v-for="item in articles"
+          :key="item.id"
+          :time="item.adTime"
+          :title="item.title"
+          :url="item.imgPath"
+        ></tuiwen>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Taro from "@tarojs/taro";
+import { get, post } from "../../utils/http";
 import tuiwen from "../../component/tuiwen.vue";
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, ref } from "vue";
 export default {
   components: {
     tuiwen
   },
-  setup() {}
+  async created() {
+    const result = await get({
+      url: "/volunteer/front/slide/getSlides"
+    });
+    this.imgs = result.data[0].url.split(",");
+    const result2 = await get({
+      url: "/volunteer/front/news/getNews"
+    });
+    this.articles = result2.data;
+  },
+  setup() {
+    let imgs = ref([]);
+    let articles = ref([]);
+    return { imgs, articles };
+  }
 };
 </script>
 

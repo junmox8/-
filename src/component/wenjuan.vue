@@ -4,22 +4,36 @@
       <nut-icon size="34" color="#21C175" name="message"></nut-icon>
     </div>
     <div class="wenjuan-right">
-      <div class="right-text">2sadasddfasd sad</div>
-      <div class="right-time">2022-08-07</div>
+      <div class="right-text">{{ title }}</div>
+      <div class="right-time">{{ startTime }}-{{ endTime }}</div>
     </div>
   </div>
 </template>
 
 <script>
+import { useStore } from "../stores/index";
+import { storeToRefs } from "pinia";
 import Taro from "@tarojs/taro";
 export default {
-  setup() {
+  props: ["title", "startTime", "endTime", "id"],
+  setup(props) {
+    let store = useStore();
+    let { arr } = storeToRefs(store);
     const jumpToDetail = () => {
-      Taro.navigateTo({
-        url: "/pages/wenjuandetail/index"
-      });
+      if (arr.value.includes(props.id))
+        Taro.showToast({
+          title: "已填写过该问卷",
+          icon: "error",
+          duration: 2000
+        });
+      else
+        Taro.navigateTo({
+          url: "/pages/wenjuandetail/index?id=" + props.id
+        });
     };
     return {
+      store,
+      arr,
       jumpToDetail
     };
   }

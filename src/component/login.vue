@@ -55,6 +55,7 @@ export default {
       });
       if (result.data.token) {
         Taro.setStorageSync("token", result.data.token);
+        Taro.setStorageSync("openId", result.data.open_id);
         emit("closeLoginPopup");
         Taro.showModal({
           title: "温馨提示",
@@ -64,10 +65,22 @@ export default {
               Taro.getUserProfile({
                 lang: "zh_CN",
                 desc: "获取你的昵称、头像、地区及性别",
-                success: response => {
+                success: async response => {
+                  const result2 = await get({
+                    url: "/volunteer/front/answer/count"
+                  });
+                  const result3 = await get({
+                    url: "/volunteer/front/feedback/getFeedbacks"
+                  });
+                  const result4 = await get({
+                    url: "/volunteer/front/recruit/getApplies"
+                  });
                   emit("sendAvatarAndName", {
                     avatar: response.userInfo.avatarUrl,
-                    name: response.userInfo.nickName
+                    name: response.userInfo.nickName,
+                    naireNumber: result2.data,
+                    fankuiNumber: result3.data.length,
+                    applyNumber: result4.data ? result4.data.length : 0
                   });
                 },
                 fail: () => {

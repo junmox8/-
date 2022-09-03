@@ -3,19 +3,15 @@
     <div class="tuiwen-content">
       <div class="left">
         <div style="display:-webkit-box;" class="text-container">
-          大厦大厦啊实打实倒萨撒范德萨分士大夫爱的色放的萨芬士大夫阿斯蒂芬阿斯蒂芬阿斯蒂芬
+          {{ title }}
         </div>
         <div class="time">
           <nut-icon name="clock"></nut-icon>
-          <div>2022-08-06</div>
+          <div>{{ time }}</div>
         </div>
       </div>
       <div class="right">
-        <img
-          style="width:100%;height:100%;"
-          src="https://ps.ssl.qhimg.com/t013f5efcfb02eba705.jpg"
-          alt=""
-        />
+        <img style="width:100%;height:100%;" :src="url" alt="" />
       </div>
     </div>
   </div>
@@ -23,7 +19,9 @@
 
 <script>
 export default {
-  name: "tuiwen"
+  name: "tuiwen",
+  props: ["time", "title", "url"],
+  setup(props) {}
 };
 </script>
 
