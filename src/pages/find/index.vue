@@ -1,7 +1,9 @@
 <template>
   <nut-tabs auto-height v-model="tabvalue" @change="change">
     <nut-tabpane pane-key="0" title="问卷">
-      <div class="find-container">
+      <div
+        :class="['find-container', wenjuanNumber.length == 0 ? 'empty' : '']"
+      >
         <wenjuan
           v-for="(item, index) in wenjuanNumber"
           :key="index"
@@ -10,10 +12,14 @@
           :endTime="item.endTime"
           :id="item.id"
         ></wenjuan>
+        <nut-empty
+          :style="{ display: wenjuanNumber.length == 0 ? 'block' : 'none' }"
+          description="暂无问卷发布"
+        ></nut-empty>
       </div>
     </nut-tabpane>
     <nut-tabpane pane-key="1" title="招募">
-      <div class="find-container">
+      <div :class="['find-container', zhaomu.length == 0 ? 'empty' : '']">
         <zhaomu
           v-for="(item, index) in zhaomu"
           :key="index"
@@ -23,6 +29,10 @@
           :title="item.title"
           :time="item.startTime + '-' + item.endTime"
         ></zhaomu>
+        <nut-empty
+          :style="{ display: zhaomu.length == 0 ? 'block' : 'none' }"
+          description="暂无招募发布"
+        ></nut-empty>
       </div>
     </nut-tabpane>
   </nut-tabs>
@@ -102,5 +112,9 @@ export default {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+.empty {
+  display: flex;
+  justify-content: center;
 }
 </style>

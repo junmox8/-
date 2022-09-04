@@ -45,7 +45,7 @@
             排口
           </div>
           <nut-radiogroup
-            :style="{ marginLeft: '5%' }"
+            :style="{ marginLeft: '25%' }"
             v-model="answer[2]"
             direction="horizontal"
           >
@@ -72,34 +72,13 @@
           <div style="height:100%;width:40%;display:flex;align-items:center">
             上传图片
           </div>
-        </nut-cell>
-        <div class="img-container">
-          <div
-            style="width: 100rpx; height: 60px; position: relative"
+          <img
+            v-for="(item, index) in imgs"
             :key="index"
-            v-for="(item, index) in fileList"
-          >
-            <img
-              style="
-              display: inline-block;
-              width: 100%;
-              height: 100%;
-              display: inline-block;
-            "
-              :src="item"
-              alt=""
-            />
-            <div class="nut-icon-container">
-              <nut-icon
-                @click="deleteImg(index)"
-                name="close"
-                size="15px"
-                color="#eeeeee"
-                style="margin: 0px 0 0 0px"
-              ></nut-icon>
-            </div>
-          </div>
-        </div>
+            :src="item"
+            style="width:30%;height:80px;"
+          />
+        </nut-cell>
       </nut-form-item>
       <nut-form-item> </nut-form-item>
     </nut-form>
@@ -122,6 +101,7 @@ export default {
     this.location = arr[0];
     this.answer = arr.splice(2, 4);
     this.imgs = result.data.feedback.resourceUrl.split(",");
+    console.log(this.imgs);
   },
   setup(props, context) {
     const title = ref("");
@@ -140,4 +120,25 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.fankui-container {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+}
+.nut-radiogroup {
+  margin-left: 29%;
+}
+.label-string {
+  position: absolute;
+  left: 35rpx;
+  color: #666666;
+}
+.nut-input .input-text,
+.nut-input__text--readonly {
+  margin-left: 42%;
+}
+</style>

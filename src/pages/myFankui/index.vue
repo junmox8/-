@@ -55,7 +55,6 @@ export default {
       url: "/volunteer/front/feedback/getFeedbacks"
     });
     this.list = result.data;
-    console.log(this.list);
   },
   setup() {
     const list = ref([]);

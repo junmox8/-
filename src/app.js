@@ -28,7 +28,8 @@ import {
   Dialog,
   Progress,
   Empty,
-  Swipe
+  Swipe,
+  Image
 } from "@nutui/nutui-taro";
 
 import "./app.css";
@@ -66,6 +67,7 @@ App.use(Button)
   .use(Progress)
   .use(Empty)
   .use(Swipe)
+  .use(Image)
   .use(pinia);
 
 export default App;
