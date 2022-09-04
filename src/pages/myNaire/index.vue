@@ -1,8 +1,8 @@
 <template>
   <div :class="['my-container', list.length == 0 ? 'empty' : '']">
     <nut-dialog
-      title="提交表单"
-      content="确定要提交表单吗"
+      title="删除提交"
+      content="确定要删除此条提交吗"
       v-model:visible="visible"
     >
       <template v-slot:footer>

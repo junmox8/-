@@ -108,6 +108,7 @@ export default {
       const result4 = await get({
         url: "/volunteer/front/recruit/getApplies"
       });
+      console.log(result4);
       this.applyNumber = result4.data ? result4.data.length : 0;
     } else {
       this.isDisplayLoginPopup = true;

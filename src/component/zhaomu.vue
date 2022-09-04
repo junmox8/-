@@ -12,8 +12,9 @@
         <div :style="{ fontSize: '13px' }">{{ time }}</div>
       </div>
       <div class="zhaomu-tag">
-        <nut-tag v-if="chaoguo == false" type="success">进行中</nut-tag>
-        <nut-tag v-if="chaoguo == true" type="danger">已截止</nut-tag>
+        <nut-tag v-if="chaoguo == 0" type="success">进行中</nut-tag>
+        <nut-tag v-if="chaoguo == 2" type="danger">已截止</nut-tag>
+        <nut-tag v-if="chaoguo == 1" type="primary">未开始</nut-tag>
       </div>
     </div>
   </div>
@@ -26,16 +27,16 @@ import dayjs from "dayjs";
 export default {
   props: ["img", "id", "location", "title", "time"],
   created() {
-    // this.time.substring(20, this.time.length)
     const time = dayjs().format("YYYY-MM-DD HH:mm:ss");
-    if (time > this.time.substring(20, this.time.length)) this.chaoguo = true;
-    else this.chaoguo = false;
+    if (time > this.time.substring(20, this.time.length)) this.chaoguo = 2;
+    if (time < this.time.substring(0, 20)) this.chaoguo = 1;
   },
   setup(props) {
-    let chaoguo = ref(false); //是否超时
+    let chaoguo = ref(0); //时间状态0 进行中 1 未开始 2 已截止
     let jumpToDetail = () => {
       Taro.navigateTo({
-        url: "/pages/zhaomudetail/index?id=" + props.id
+        url:
+          "/pages/zhaomudetail/index?id=" + props.id + "&state=" + chaoguo.value
       });
     };
     return {
@@ -64,7 +65,7 @@ export default {
 }
 .zhaomu-title {
   position: absolute;
-  left: 3%;
+  left: 4%;
   top: 10px;
   font-size: 20px;
   font-weight: 600;

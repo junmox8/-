@@ -62,7 +62,6 @@ export default {
       showLoading: false
     });
     this.zhaomu = result3.data;
-    console.log(result3.data);
   },
   setup(props, context) {
     let tabvalue = ref(0);

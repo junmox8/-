@@ -165,31 +165,9 @@ export default {
       desc.value = date + " " + time;
     };
     const handUp = async () => {
-      // const result = await post({
-      //   url:
-      //     "/volunteer/front/feedback/addUserFeedback?content=" +
-      //     address.value +
-      //     "," +
-      //     desc.value +
-      //     "," +
-      //     radioVal1.value +
-      //     "," +
-      //     radioVal2.value +
-      //     "," +
-      //     radioVal3.value +
-      //     "," +
-      //     radioVal4.value +
-      //     "&resourceUrl=" +
-      //     img.value +
-      //     "&title=" +
-      //     title.value,
-      //   params: null,
-      //   showLoading: false
-      // });
-      // console.log(result);
       Taro.request({
         url:
-          "http://43.142.147.49:5200//volunteer/front/feedback/addUserFeedback?content=" +
+          "http://43.142.147.49:5200/volunteer/front/feedback/addUserFeedback?content=" +
           address.value +
           "," +
           desc.value +
