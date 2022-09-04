@@ -11,7 +11,8 @@ export default defineAppConfig({
     "pages/myNaire/index",
     "pages/handUpZhaomu/index",
     "pages/myNaireDetail/index",
-    "pages/fankuiDetail/index"
+    "pages/fankuiDetail/index",
+    "pages/myApplyDetail/index"
   ],
   window: {
     backgroundTextStyle: "light",

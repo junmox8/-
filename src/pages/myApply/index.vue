@@ -101,11 +101,17 @@ export default {
         }
       });
     };
+    const jumpTo = id => {
+      Taro.navigateTo({
+        url: "/pages/myApplyDetail/index?id=" + id
+      });
+    };
     return {
       list,
       deleteId,
       visible,
-      handUp
+      handUp,
+      jumpTo
     };
   }
 };

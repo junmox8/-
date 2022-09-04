@@ -161,6 +161,9 @@ export default {
       name.value = "游客";
       avatar.value = "https://ps.ssl.qhimg.com/t013f5efcfb02eba705.jpg";
       isDisplayLoginPopup.value = true;
+      applyNumber.value = 0;
+      naireNumber.value = 0;
+      fankuiNumber.value = 0;
     };
     const jumpTo = i => {
       if (i == 1) Taro.navigateTo({ url: "../myNaire/index?id=1" });

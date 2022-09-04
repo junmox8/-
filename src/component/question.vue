@@ -1,10 +1,10 @@
 <template>
   <div :style="{ width: '70%', marginLeft: '30%' }">
-    <nut-textarea
+    <textarea
       v-model="text"
       v-if="select == 1"
       :autosize="{ maxHeight: 150, minHeight: 30 }"
-    ></nut-textarea>
+    ></textarea>
     <nut-radiogroup v-if="select == 2" v-model="radioVal">
       <nut-radio v-for="(item, index) in radio" :key="index" :label="index">{{
         item

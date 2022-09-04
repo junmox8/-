@@ -1,17 +1,23 @@
 <template>
   <div :style="{ width: '70%', marginLeft: '30%' }">
-    <nut-textarea
+    <textarea
+      disabled
       v-model="answer.text"
       v-if="select == 1"
       :autosize="{ maxHeight: 150, minHeight: 30 }"
-    ></nut-textarea>
+    ></textarea>
     <nut-radiogroup v-if="select == 2" v-model="answer.radio">
-      <nut-radio v-for="(item, index) in radio" :key="index" :label="index">{{
-        item
-      }}</nut-radio>
+      <nut-radio
+        disabled
+        v-for="(item, index) in radio"
+        :key="index"
+        :label="index"
+        >{{ item }}</nut-radio
+      >
     </nut-radiogroup>
     <nut-checkboxgroup v-model="answer.checkbox" v-if="select == 3">
       <nut-checkbox
+        disabled
         v-for="(item, index) in radio"
         :key="index"
         :label="index"

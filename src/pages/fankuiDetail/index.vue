@@ -2,17 +2,23 @@
   <div class="fankui-container">
     <nut-form :style="{ width: '90%', marginLeft: '5%' }">
       <nut-form-item>
-        <nut-input label="反馈标题" v-model="title" placeholder="请输入标题" />
+        <nut-input
+          disabled
+          label="反馈标题"
+          v-model="title"
+          placeholder="请输入标题"
+        />
       </nut-form-item>
       <nut-form-item>
         <nut-input
+          disabled
           v-model="location"
           label="具体地点"
           placeholder="请输入地点"
         />
       </nut-form-item>
       <nut-form-item>
-        <nut-input v-model="time" label="反馈日期" />
+        <nut-input disabled v-model="time" label="反馈日期" />
       </nut-form-item>
       <nut-form-item>
         <nut-cell>
@@ -20,10 +26,10 @@
             水体味道
           </div>
           <nut-radiogroup v-model="answer[0]" direction="horizontal">
-            <nut-radio label="1">腥臭味</nut-radio>
-            <nut-radio label="2">一般臭味</nut-radio>
-            <nut-radio label="3">无臭味</nut-radio>
-            <nut-radio label="4">其他味道</nut-radio>
+            <nut-radio disabled label="1">腥臭味</nut-radio>
+            <nut-radio disabled label="2">一般臭味</nut-radio>
+            <nut-radio disabled label="3">无臭味</nut-radio>
+            <nut-radio disabled label="4">其他味道</nut-radio>
           </nut-radiogroup>
         </nut-cell>
       </nut-form-item>
@@ -33,9 +39,9 @@
             水生植物数量
           </div>
           <nut-radiogroup v-model="answer[1]" direction="horizontal">
-            <nut-radio label="1">大量植物</nut-radio>
-            <nut-radio label="2">正常</nut-radio>
-            <nut-radio label="3">无</nut-radio>
+            <nut-radio disabled label="1">大量植物</nut-radio>
+            <nut-radio disabled label="2">正常</nut-radio>
+            <nut-radio disabled label="3">无</nut-radio>
           </nut-radiogroup>
         </nut-cell>
       </nut-form-item>
@@ -49,8 +55,8 @@
             v-model="answer[2]"
             direction="horizontal"
           >
-            <nut-radio label="1">有</nut-radio>
-            <nut-radio label="2">无</nut-radio>
+            <nut-radio disabled label="1">有</nut-radio>
+            <nut-radio disabled label="2">无</nut-radio>
           </nut-radiogroup>
         </nut-cell>
       </nut-form-item>
@@ -60,10 +66,10 @@
             水体颜色
           </div>
           <nut-radiogroup v-model="answer[3]" direction="horizontal">
-            <nut-radio label="1">清澈见底</nut-radio>
-            <nut-radio label="2">绿色</nut-radio>
-            <nut-radio label="3">灰绿色</nut-radio>
-            <nut-radio label="4">黑色</nut-radio>
+            <nut-radio disabled label="1">清澈见底</nut-radio>
+            <nut-radio disabled label="2">绿色</nut-radio>
+            <nut-radio disabled label="3">灰绿色</nut-radio>
+            <nut-radio disabled label="4">黑色</nut-radio>
           </nut-radiogroup>
         </nut-cell>
       </nut-form-item>
@@ -80,7 +86,11 @@
           />
         </nut-cell>
       </nut-form-item>
-      <nut-form-item> </nut-form-item>
+    </nut-form>
+    <nut-form>
+      <nut-form-item label="管理员回复">
+        <nut-textarea disabled v-model="response"></nut-textarea>
+      </nut-form-item>
     </nut-form>
   </div>
 </template>
@@ -101,20 +111,22 @@ export default {
     this.location = arr[0];
     this.answer = arr.splice(2, 4);
     this.imgs = result.data.feedback.resourceUrl.split(",");
-    console.log(this.imgs);
+    this.response = result.data.feedback.checkComment;
   },
   setup(props, context) {
     const title = ref("");
     const answer = ref([]);
     const time = ref("");
     const imgs = ref([]);
+    let response = ref("");
     const location = ref("");
     return {
       title,
       answer,
       time,
       location,
-      imgs
+      imgs,
+      response
     };
   }
 };
