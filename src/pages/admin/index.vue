@@ -1,7 +1,8 @@
 <template>
   <div class="admin-container">
-    <div class="swiper-container">
+    <div :class="['swiper-container', imgs.length == 0 ? 'empty' : '']">
       <nut-swiper
+        :style="{ display: imgs.length == 0 ? 'none' : 'block' }"
         :init-page="page"
         :pagination-visible="true"
         pagination-color="#426543"
@@ -11,6 +12,10 @@
           <img style="width:100%;" :src="item" alt="" />
         </nut-swiper-item>
       </nut-swiper>
+      <nut-empty
+        :style="{ display: imgs.length == 0 ? 'block' : 'none' }"
+        description="暂无发布轮播图"
+      ></nut-empty>
     </div>
     <div class="content-container">
       <div class="title-container">
@@ -30,7 +35,12 @@
           </div>
         </div>
       </div>
-      <div class="tuiwen-content-container">
+      <div
+        :class="[
+          'tuiwen-content-container',
+          articles.length == 0 ? 'empty' : ''
+        ]"
+      >
         <tuiwen
           v-for="item in articles"
           :key="item.id"
@@ -38,6 +48,10 @@
           :title="item.title"
           :url="item.imgPath"
         ></tuiwen>
+        <nut-empty
+          :style="{ display: articles.length == 0 ? 'block' : 'none' }"
+          description="暂无推文发布"
+        ></nut-empty>
       </div>
     </div>
   </div>
@@ -109,5 +123,9 @@ export default {
   padding-left: 5%;
   padding-right: 5%;
   background-color: #fff;
+}
+.empty {
+  display: flex;
+  justify-content: center;
 }
 </style>

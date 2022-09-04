@@ -84,6 +84,22 @@ export default {
         showLoading: false
       });
       wenjuanNumber.value = result.data;
+      const result2 = await get({
+        url: "/volunteer/front/answer",
+        params: null,
+        showLoading: true
+      });
+      let store = useStore();
+      if (result2.data)
+        result2.data.forEach(item => {
+          store.addArr(item.questionnaireId);
+        });
+      const result3 = await get({
+        url: "/volunteer/front/recruit/getRecruits",
+        params: null,
+        showLoading: false
+      });
+      zhaomu.value = result3.data;
     };
     return {
       tabvalue,
