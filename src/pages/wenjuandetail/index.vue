@@ -11,6 +11,13 @@
   </nut-dialog>
   <div class="detail-container">
     <div class="wenjuan">
+      <div class="form-title">
+        <div class="title-1">{{ title }}</div>
+        <div class="title-2">{{ introduction }}</div>
+      </div>
+      <nut-divider style="width:95%;margin-left:2.5%" dashed
+        >问卷详情</nut-divider
+      >
       <nut-form>
         <nut-form-item
           v-for="(item, index) in content"
@@ -55,6 +62,8 @@ export default {
       showLoading: false
     });
     this.content = JSON.parse(result2.data.content);
+    this.title = result2.data.title;
+    this.introduction = result2.data.introduction;
   },
   components: {
     question
@@ -63,6 +72,8 @@ export default {
     let id = ref(0);
     let content = ref({});
     let answer = ref([]);
+    let title = ref("");
+    let introduction = ref("");
     const visible = ref(false);
     const handUp = async () => {
       visible.value = false;
@@ -97,6 +108,8 @@ export default {
       content,
       visible,
       answer,
+      title,
+      introduction,
       handUp,
       sendData
     };
@@ -118,5 +131,31 @@ export default {
   height: auto;
   min-height: 100vh;
   background-color: #fff;
+}
+.form-title {
+  width: 100%;
+  height: auto;
+  min-height: 150px;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+}
+.title-1 {
+  width: 100%;
+  height: auto;
+  padding-left: 10%;
+  padding-right: 10%;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.title-2 {
+  width: 100%;
+  height: auto;
+  padding-left: 6%;
+  padding-right: 4%;
+  font-size: 14px;
+  font-weight: 500;
+  color: #696969;
 }
 </style>

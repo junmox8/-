@@ -131,7 +131,7 @@ export default {
     let applyNumber = ref(0);
     const jumpToDetail = () => {
       Taro.navigateTo({
-        url: "/pages/handUpFankui/index"
+        url: "/pages/fankui/handUpFankui/index"
       });
     };
     const closeLoginPopup = () => {
@@ -168,7 +168,7 @@ export default {
     const jumpTo = i => {
       if (i == 1) Taro.navigateTo({ url: "../myNaire/index?id=1" });
       if (i == 2) Taro.navigateTo({ url: "../myApply/index?id=1" });
-      if (i == 3) Taro.navigateTo({ url: "../myFankui/index?id=1" });
+      if (i == 3) Taro.navigateTo({ url: "../fankui/myFankui/index?id=1" });
     };
     return {
       isDisplayLoginPopup,

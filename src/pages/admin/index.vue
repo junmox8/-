@@ -29,6 +29,7 @@
             </div>
           </div>
           <div
+            @click="jumpTo"
             style="position:absolute;right:0;height:100%;line-height:50px;right:5%;font-size:14px;color:#A2A2A2"
           >
             更多
@@ -66,7 +67,10 @@ export default {
   components: {
     tuiwen
   },
-  async created() {
+  onReachBottom() {
+    console.log(1);
+  },
+  async onShow() {
     const result = await get({
       url: "/volunteer/front/slide/getSlides"
     });
@@ -74,12 +78,21 @@ export default {
     const result2 = await get({
       url: "/volunteer/front/news/getNews"
     });
-    this.articles = result2.data;
+    if (result2.data.length <= 3) this.articles = result2.data;
+    else {
+      result2.data.splice(3, result2.data.length - 3);
+      this.articles = result2.data;
+    }
   },
   setup() {
     let imgs = ref([]);
     let articles = ref([]);
-    return { imgs, articles };
+    const jumpTo = () => {
+      Taro.navigateTo({
+        url: "../gengduo/index"
+      });
+    };
+    return { imgs, articles, jumpTo };
   }
 };
 </script>

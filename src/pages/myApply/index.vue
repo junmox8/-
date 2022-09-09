@@ -70,36 +70,22 @@ export default {
     const list = ref([]);
     const deleteId = ref(0);
     const visible = ref(false);
-    const handUp = () => {
-      Taro.request({
-        url:
-          "http://43.142.147.49:5200/volunteer/front/recruit/removeApply?applyId=" +
-          deleteId.value, //仅为示例，并非真实的接口地址
-        method: "POST",
-        header: {
-          token: Taro.getStorageSync("token")
-        },
-        success: async function(res) {
-          if (res.data.code == 200) {
-            Taro.showToast({
-              title: "删除成功",
-              icon: "success",
-              duration: 2000
-            });
-            visible.value = false;
-            const result2 = await get({
-              url: "/volunteer/front/recruit/getApplies"
-            });
-            list.value = result2.data ? result2.data : [];
-          } else {
-            Taro.showToast({
-              title: "删除失败",
-              icon: "error",
-              duration: 2000
-            });
-          }
-        }
+    const handUp = async () => {
+      const result = await post({
+        url: "/volunteer/front/recruit/removeApply?applyId=" + deleteId.value
       });
+      if (result.code == 200) {
+        Taro.showToast({
+          title: "删除成功",
+          icon: "success",
+          duration: 2000
+        });
+        visible.value = false;
+        const result2 = await get({
+          url: "/volunteer/front/recruit/getApplies"
+        });
+        list.value = result2.data ? result2.data : [];
+      }
     };
     const jumpTo = id => {
       Taro.navigateTo({

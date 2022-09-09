@@ -48,7 +48,7 @@
 <script>
 import Taro from "@tarojs/taro";
 import { ref, reactive, toRefs } from "vue";
-import { get, post } from "../../utils/http.js";
+import { get, post } from "../../../utils/http.js";
 export default {
   async created() {
     const result = await get({
@@ -62,39 +62,27 @@ export default {
     const deleteId = ref(0);
     const jumpTo = id => {
       Taro.navigateTo({
-        url: "/pages/fankuiDetail/index?id=" + id
+        url: "/pages/fankui/fankuiDetail/index?id=" + id
       });
     };
     const handUp = async id => {
-      Taro.request({
+      const result = await post({
         url:
-          "http://43.142.147.49:5200/volunteer/front/feedback/removeFeedback?feedbackId=" +
-          deleteId.value, //仅为示例，并非真实的接口地址
-        method: "POST",
-        header: {
-          token: Taro.getStorageSync("token")
-        },
-        success: async function(res) {
-          if (res.data.code == 200) {
-            Taro.showToast({
-              title: "删除成功",
-              icon: "success",
-              duration: 2000
-            });
-            visible.value = false;
-            const result2 = await get({
-              url: "/volunteer/front/feedback/getFeedbacks"
-            });
-            list.value = result2.data;
-          } else {
-            Taro.showToast({
-              title: "删除失败",
-              icon: "error",
-              duration: 2000
-            });
-          }
-        }
+          "/volunteer/front/feedback/removeFeedback?feedbackId=" +
+          deleteId.value
       });
+      if (result.code == 200) {
+        Taro.showToast({
+          title: "删除成功",
+          icon: "success",
+          duration: 2000
+        });
+        visible.value = false;
+        const result2 = await get({
+          url: "/volunteer/front/feedback/getFeedbacks"
+        });
+        list.value = result2.data;
+      }
     };
     return {
       list,

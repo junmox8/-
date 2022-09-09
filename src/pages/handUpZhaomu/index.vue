@@ -11,15 +11,23 @@
       </template>
     </nut-dialog>
     <nut-form>
-      <nut-form-item label="联系电话">
-        <input
-          v-model="phone"
-          class="nut-input-text"
-          placeholder="请输入联系电话"
-          type="text"
-        />
+      <nut-form-item label="联系电话" label-width="70px">
+        <div
+          style="display:flex;flex-wrap:nowrap;justify-content: space-between;"
+        >
+          <input v-model="phone" placeholder="请输入联系电话" type="text" />
+          <button
+            class="button-phone"
+            open-type="getPhoneNumber"
+            @getphonenumber="getPhoneNumber"
+            size="mini"
+            type="primary"
+          >
+            获取
+          </button>
+        </div>
       </nut-form-item>
-      <nut-form-item label="备注">
+      <nut-form-item label="备注" label-width="70px">
         <nut-textarea v-model="beizhu" placeholder="请输入备注" type="text" />
       </nut-form-item>
     </nut-form>
@@ -57,39 +65,30 @@ export default {
           duration: 2000
         });
       else {
-        Taro.request({
+        const result = await post({
           url:
-            "http://43.142.147.49:5200/volunteer/front/recruit/submitApply?comment=" +
+            "/volunteer/front/recruit/submitApply?comment=" +
             beizhu.value +
             "&contact=" +
             phone.value +
             "&recruitId=" +
-            id.value,
-          method: "POST",
-          header: {
-            token: Taro.getStorageSync("token") || ""
-          },
-          success: result => {
-            if (result.data.code == 200) {
-              visible.value = false;
-              Taro.navigateBack({
-                delta: 1
-              });
-              Taro.showToast({
-                title: "成功报名",
-                icon: "success",
-                duration: 2000
-              });
-            } else {
-              Taro.showToast({
-                title: result.data.frontMsg,
-                icon: "error",
-                duration: 2000
-              });
-            }
-          }
+            id.value
         });
+        if (result.code == 200) {
+          visible.value = false;
+          Taro.navigateBack({
+            delta: 1
+          });
+          Taro.showToast({
+            title: "成功报名",
+            icon: "success",
+            duration: 2000
+          });
+        }
       }
+    };
+    const getPhoneNumber = async e => {
+      console.log(e);
     };
     return {
       phone,
@@ -97,7 +96,8 @@ export default {
       id,
       visible,
       handup,
-      handUp
+      handUp,
+      getPhoneNumber
     };
   }
 };
@@ -111,5 +111,8 @@ export default {
   background-color: #f0f0f0;
   padding-left: 2.5%;
   padding-right: 2.5%;
+}
+.button-phone {
+  height: 30% !important;
 }
 </style>

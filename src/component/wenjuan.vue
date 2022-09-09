@@ -1,7 +1,7 @@
 <template>
   <div class="wenjuan-container" @click="jumpToDetail">
     <div class="wenjuan-left">
-      <nut-icon size="34" color="#21C175" name="message"></nut-icon>
+      <i style="font-size:34px" :class="['iconfont', img]"></i>
     </div>
     <div class="wenjuan-right">
       <div class="right-text">{{ title }}</div>
@@ -11,14 +11,22 @@
 </template>
 
 <script>
+import { tubiao } from "../json/tubiao";
+import dayjs from "dayjs";
 import { useStore } from "../stores/index";
 import { storeToRefs } from "pinia";
+import { ref } from "vue";
 import Taro from "@tarojs/taro";
 export default {
   props: ["title", "startTime", "endTime", "id"],
+  created() {
+    const num = Math.floor(Math.random() * 10 + 1);
+    this.img = tubiao[num];
+  },
   setup(props) {
     let store = useStore();
     let { arr } = storeToRefs(store);
+    const img = ref("");
     const jumpToDetail = () => {
       if (arr.value.includes(props.id))
         Taro.showToast({
@@ -26,14 +34,30 @@ export default {
           icon: "error",
           duration: 2000
         });
-      else
-        Taro.navigateTo({
-          url: "/pages/wenjuandetail/index?id=" + props.id
-        });
+      else {
+        const time = dayjs().format("YYYY-MM-DD HH:mm:ss");
+        if (time >= props.startTime && time <= props.endTime)
+          Taro.navigateTo({
+            url: "/pages/wenjuandetail/index?id=" + props.id
+          });
+        if (time > props.endTime)
+          Taro.showToast({
+            title: "填写已截止",
+            icon: "error",
+            duration: 2000
+          });
+        if (time < props.startTime)
+          Taro.showToast({
+            title: "填写未开始",
+            icon: "error",
+            duration: 2000
+          });
+      }
     };
     return {
       store,
       arr,
+      img,
       jumpToDetail
     };
   }

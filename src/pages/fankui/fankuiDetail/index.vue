@@ -88,7 +88,7 @@
       </nut-form-item>
     </nut-form>
     <nut-form>
-      <nut-form-item label="管理员回复">
+      <nut-form-item v-if="response.length > 0" label="管理员回复">
         <nut-textarea disabled v-model="response"></nut-textarea>
       </nut-form-item>
     </nut-form>
@@ -97,11 +97,11 @@
 
 <script>
 import qs from "qs";
-import { get, post } from "../../utils/http";
+import { get, post } from "../../../utils/http";
 import { ref, reactive } from "vue";
 export default {
   async created() {
-    const id = qs.parse(this.tid.slice(25)).id;
+    const id = qs.parse(this.tid.slice(32)).id;
     const result = await get({
       url: "/volunteer/front/feedback/getFeedbackById?feedbackId=" + id
     });
@@ -112,6 +112,7 @@ export default {
     this.answer = arr.splice(2, 4);
     this.imgs = result.data.feedback.resourceUrl.split(",");
     this.response = result.data.feedback.checkComment;
+    console.log(result);
   },
   setup(props, context) {
     const title = ref("");

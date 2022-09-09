@@ -141,8 +141,8 @@
 <script>
 import Taro from "@tarojs/taro";
 import { ref } from "vue";
-import { get, post } from "../../utils/http";
-import { uploadFile } from "../../utils/upload";
+import { get, post } from "../../../utils/http";
+import { uploadFile } from "../../../utils/upload";
 export default {
   async created() {},
   setup() {
@@ -165,9 +165,9 @@ export default {
       desc.value = date + " " + time;
     };
     const handUp = async () => {
-      Taro.request({
+      const result = await post({
         url:
-          "http://43.142.147.49:5200/volunteer/front/feedback/addUserFeedback?content=" +
+          "/volunteer/front/feedback/addUserFeedback?content=" +
           address.value +
           "," +
           desc.value +
@@ -182,24 +182,18 @@ export default {
           "&resourceUrl=" +
           img.value +
           "&title=" +
-          title.value,
-        method: "POST",
-        header: {
-          token: Taro.getStorageSync("token") || ""
-        },
-        success: res => {
-          if (res.data.code == 200) {
-            Taro.navigateBack({
-              delta: 1
-            });
-            Taro.showToast({
-              title: "成功添加反馈",
-              icon: "success",
-              duration: 2000
-            });
-          }
-        }
+          title.value
       });
+      if (result.code == 200) {
+        Taro.navigateBack({
+          delta: 1
+        });
+        Taro.showToast({
+          title: "成功添加反馈",
+          icon: "success",
+          duration: 2000
+        });
+      }
     };
     const chooseimg = () => {
       Taro.chooseImage({

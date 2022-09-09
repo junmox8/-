@@ -5,14 +5,12 @@ export default defineAppConfig({
     "pages/find/index",
     "pages/wenjuandetail/index",
     "pages/zhaomudetail/index",
-    "pages/handUpFankui/index",
     "pages/myApply/index",
-    "pages/myFankui/index",
     "pages/myNaire/index",
     "pages/handUpZhaomu/index",
     "pages/myNaireDetail/index",
-    "pages/fankuiDetail/index",
-    "pages/myApplyDetail/index"
+    "pages/myApplyDetail/index",
+    "pages/gengduo/index"
   ],
   window: {
     backgroundTextStyle: "light",
@@ -42,5 +40,11 @@ export default defineAppConfig({
         pagePath: "pages/my/index"
       }
     ]
-  }
+  },
+  subPackages: [
+    {
+      root: "pages/fankui",
+      pages: ["fankuiDetail/index", "handUpFankui/index", "myFankui/index"]
+    }
+  ]
 });

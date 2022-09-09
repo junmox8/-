@@ -14,19 +14,25 @@
             <nut-cell title="地点" :desc="location"></nut-cell>
             <nut-cell title="举办方" :desc="manager"></nut-cell>
             <nut-cell title="电话" :desc="contact"></nut-cell>
-            <div class="last-nut-cell">
-              <nut-input
-                disabled
-                style="width:100%;height:100%"
-                label="项目介绍"
-                type="textarea"
-                show-word-limit
-                rows="4"
-                max-length="200"
-                placeholder="请输入留言"
-                v-model="instruction"
-              />
-            </div>
+            <nut-form>
+              <nut-form-item label="项目介绍">
+                <!-- <textarea
+                  style="max-width:90%"
+                  disabled
+                  rows="4"
+                  maxlength="200"
+                  v-model="instruction"
+                ></textarea> -->
+                <nut-textarea
+                  style="max-width:100%"
+                  disabled
+                  rows="4"
+                  maxlength="200"
+                  v-model="instruction"
+                >
+                </nut-textarea>
+              </nut-form-item>
+            </nut-form>
           </nut-cell-group>
         </div>
       </div>
@@ -151,13 +157,6 @@ export default {
   height: auto;
   padding-left: 10px;
   padding-right: 10px;
-}
-.last-nut-cell {
-  width: 100%;
-  min-height: 46px;
-  height: auto;
-  display: flex;
-  flex-wrap: nowrap;
 }
 .nut-input {
   padding: 0;

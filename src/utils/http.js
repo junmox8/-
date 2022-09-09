@@ -31,11 +31,26 @@ export const get = async ({ url, params, showLoading }) => {
     }
   }
 };
+export const del = async ({ url, params, showLoading }) => {
+  if (showLoading) {
+    Taro.showLoading({
+      title: "加载中..."
+    });
+  }
+  try {
+    const result = await send(url, params, "DELETE");
+    return result;
+  } finally {
+    if (showLoading) {
+      Taro.hideLoading();
+    }
+  }
+};
 
 const send = async (url, data, method) => {
   try {
     const {
-      data: { success, data: responseData, errorMsg }
+      data: { data: responseData, backMsg, frontMsg, code }
     } = await Taro.request({
       url: "http://43.142.147.49:5200" + url,
       method,
@@ -46,23 +61,23 @@ const send = async (url, data, method) => {
         token: Taro.getStorageSync("token") || ""
       }
     });
-    if (errorMsg) {
-      if (errorMsg === "请重新登录") {
+    if (code !== 200) {
+      if (frontMsg === "身份认证过期,请重新登录") {
         Taro.removeStorageSync("token");
       }
       Taro.showToast({
-        title: errorMsg,
+        title: frontMsg,
         icon: "error",
         duration: 3000
       });
     }
-    return { success, data: responseData, errorMsg };
+    return { success: true, data: responseData, frontMsg, backMsg, code };
   } catch (error) {
     Taro.showToast({
       title: "服务器异常",
       icon: "error",
       duration: 3000
     });
-    return { success: false, data: null, errorMsg: "服务器异常" };
+    return { success: false, data: null, frontMsg: "服务器异常" };
   }
 };

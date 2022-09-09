@@ -1,10 +1,10 @@
 <template>
   <div :style="{ width: '70%', marginLeft: '30%' }">
     <textarea
+      style="width:90%"
       disabled
       v-model="answer.text"
       v-if="select == 1"
-      :autosize="{ maxHeight: 150, minHeight: 30 }"
     ></textarea>
     <nut-radiogroup v-if="select == 2" v-model="answer.radio">
       <nut-radio
@@ -33,7 +33,6 @@ export default {
   props: ["select", "selects", "answer"],
   created() {
     this.radio = this.selects.split(",");
-    console.log(this.answer);
   },
   setup(props) {
     let radio = ref([]);
@@ -44,4 +43,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.nut-radio__label {
+  max-width: 78%;
+}
+.nut-radiogroup {
+  margin-left: -3% !important;
+}
+.nut-checkboxgroup {
+  margin-left: -4%;
+}
+.nut-checkbox__label {
+  max-width: 74%;
+}
+</style>

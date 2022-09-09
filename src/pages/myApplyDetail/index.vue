@@ -5,11 +5,11 @@
         <nut-textarea disabled v-model="beizhu" type="text" />
       </nut-form-item>
       <nut-form-item label="联系方式">
-        <input disabled class="nut-input-text" :value="contact" type="text" />
+        <input disabled :value="contact" />
       </nut-form-item>
     </nut-form>
     <nut-form>
-      <nut-form-item label="管理员回复">
+      <nut-form-item v-if="yijian.length > 0" label="管理员回复">
         <nut-textarea disabled v-model="yijian"></nut-textarea>
       </nut-form-item>
     </nut-form>

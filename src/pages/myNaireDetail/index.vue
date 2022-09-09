@@ -1,5 +1,12 @@
 <template>
   <div class="my-container">
+    <div class="form-title">
+      <div class="title-1">{{ title }}</div>
+      <div class="title-2">{{ introduction }}</div>
+    </div>
+    <nut-divider style="width:95%;margin-left:2.5%" dashed
+      >问卷详情</nut-divider
+    >
     <nut-form>
       <nut-form-item
         v-for="(item, index) in content"
@@ -34,15 +41,19 @@ export default {
     });
     this.content = JSON.parse(result.data.content);
     this.answer = JSON.parse(tid.answer);
-    console.log(this.content);
-    console.log(this.answer);
+    this.title = result.data.title;
+    this.introduction = result.data.introduction;
   },
   setup() {
     let content = ref([]);
     let answer = ref([]);
+    let title = ref([]);
+    let introduction = ref([]);
     return {
       content,
-      answer
+      answer,
+      title,
+      introduction
     };
   }
 };
@@ -55,5 +66,32 @@ export default {
   min-height: 100vh;
   position: relative;
   background-color: #f0f0f0;
+}
+.form-title {
+  width: 100%;
+  height: auto;
+  min-height: 150px;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  background-color: #fff;
+}
+.title-1 {
+  width: 100%;
+  height: auto;
+  padding-left: 10%;
+  padding-right: 10%;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.title-2 {
+  width: 100%;
+  height: auto;
+  padding-left: 6%;
+  padding-right: 4%;
+  font-size: 14px;
+  font-weight: 500;
+  color: #696969;
 }
 </style>
