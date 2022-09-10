@@ -1,11 +1,18 @@
 <template>
   <div :style="{ width: '70%', marginLeft: '30%' }">
-    <textarea
+    <!-- <textarea
       style="width:90%"
       disabled
       v-model="answer.text"
       v-if="select == 1"
-    ></textarea>
+    ></textarea> -->
+    <nut-textarea
+      v-model="answer.text"
+      disabled
+      style="width:90%"
+      autosize
+      v-if="select == 1"
+    />
     <nut-radiogroup v-if="select == 2" v-model="answer.radio">
       <nut-radio
         disabled

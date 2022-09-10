@@ -1,11 +1,17 @@
 <template>
   <div :style="{ width: '70%', marginLeft: '30%' }">
-    <textarea
+    <!-- <textarea
       style="width:90%"
       v-model="text"
       v-if="select == 1"
       rows="1"
-    ></textarea>
+    ></textarea> -->
+    <nut-textarea
+      v-model="text"
+      style="width:90%"
+      autosize
+      v-if="select == 1"
+    />
     <div v-if="select == 2" style="display:flex;justify-content:flex-start;">
       <nut-radiogroup
         style="margin-left:0px"
