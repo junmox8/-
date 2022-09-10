@@ -56,7 +56,7 @@ export default {
   left: 0;
   width: auto;
   max-height: 45%;
-  max-width: 100%;
+  max-width: 90%;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;

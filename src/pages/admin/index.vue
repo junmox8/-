@@ -67,22 +67,16 @@ export default {
   components: {
     tuiwen
   },
-  onReachBottom() {
-    console.log(1);
-  },
   async onShow() {
     const result = await get({
       url: "/volunteer/front/slide/getSlides"
     });
     this.imgs = result.data[0].url.split(",");
     const result2 = await get({
-      url: "/volunteer/front/news/getNews"
+      url: "/volunteer/front/news/getNews?pageNum=1&pageSize=4"
     });
-    if (result2.data.length <= 3) this.articles = result2.data;
-    else {
-      result2.data.splice(3, result2.data.length - 3);
-      this.articles = result2.data;
-    }
+    console.log(result2);
+    this.articles = result2.data.records;
   },
   setup() {
     let imgs = ref([]);

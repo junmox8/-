@@ -30,7 +30,8 @@ import {
   Empty,
   Swipe,
   Image,
-  Divider
+  Divider,
+  SearchBar
 } from "@nutui/nutui-taro";
 
 import "./app.css";
@@ -70,6 +71,7 @@ App.use(Button)
   .use(Swipe)
   .use(Image)
   .use(Divider)
+  .use(SearchBar)
   .use(pinia);
 
 export default App;

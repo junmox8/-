@@ -78,8 +78,8 @@ export default {
                   emit("sendAvatarAndName", {
                     avatar: response.userInfo.avatarUrl,
                     name: response.userInfo.nickName,
-                    naireNumber: result2.data,
-                    fankuiNumber: result3.data.length,
+                    naireNumber: result2.data ? result2.data : 0,
+                    fankuiNumber: result3.data ? result3.data.length : 0,
                     applyNumber: result4.data ? result4.data.length : 0
                   });
                 },
