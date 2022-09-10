@@ -1,15 +1,9 @@
 <template>
   <div :style="{ width: '70%', marginLeft: '30%' }">
-    <!-- <textarea
-      style="width:90%"
-      v-model="text"
-      v-if="select == 1"
-      rows="1"
-    ></textarea> -->
     <nut-textarea
       v-model="text"
       style="width:90%"
-      autosize
+      :autosize="{ maxHeight: 50, minHeight: 20 }"
       v-if="select == 1"
     />
     <div v-if="select == 2" style="display:flex;justify-content:flex-start;">
