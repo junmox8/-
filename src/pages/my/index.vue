@@ -201,6 +201,8 @@ export default {
   background-image: url("../../img/bgjj.jpg");
   overflow: hidden;
   background-color: #f0f0f0;
+  background-repeat: no-repeat;
+  background-size: cover;
   position: relative;
 }
 .header-avatar-container {

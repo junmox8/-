@@ -15,7 +15,15 @@
           v-model="location"
           label="具体地点"
           placeholder="请输入地点"
+          rows="2"
+          type="textarea"
         />
+        <!-- <nut-textarea
+          v-model="location"
+          style="width:90%"
+          :autosize="{ maxHeight: 50, minHeight: 20 }"
+          v-if="select == 1"
+        /> -->
       </nut-form-item>
       <nut-form-item>
         <nut-input disabled v-model="time" label="反馈日期" />
@@ -88,8 +96,16 @@
       </nut-form-item>
     </nut-form>
     <nut-form>
-      <nut-form-item v-if="response.length > 0" label="管理员回复">
-        <nut-textarea disabled v-model="response"></nut-textarea>
+      <nut-form-item
+        style="margin-left:4%"
+        v-if="response.length > 0"
+        label="管理员回复"
+      >
+        <nut-textarea
+          style="width:90%"
+          disabled
+          v-model="response"
+        ></nut-textarea>
       </nut-form-item>
     </nut-form>
   </div>
@@ -152,6 +168,10 @@ export default {
 }
 .nut-input .input-text,
 .nut-input__text--readonly {
-  margin-left: 42%;
+  margin-left: 40%;
+}
+.h5-input,
+.input-text {
+  max-width: 75%;
 }
 </style>

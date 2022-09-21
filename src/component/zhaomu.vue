@@ -81,7 +81,7 @@ export default {
   word-break: break-all;
   word-wrap: break-word;
   width: auto;
-  max-width: 90%;
+  max-width: 98%;
 }
 .zhaomu-time {
   margin-left: 3%;
@@ -99,7 +99,8 @@ export default {
   align-items: center;
 }
 .zhaomu-tag {
-  margin-left: 2.5%;
+  position: absolute;
+  right: 3%;
 }
 .end-line {
   width: 100%;
@@ -109,5 +110,6 @@ export default {
   flex-wrap: nowrap;
   margin-bottom: 10px;
   margin-top: 10px;
+  position: relative;
 }
 </style>
