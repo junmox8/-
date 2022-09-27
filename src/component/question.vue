@@ -3,7 +3,7 @@
     <nut-textarea
       v-model="text"
       style="width:90%"
-      :autosize="{ maxHeight: 50, minHeight: 20 }"
+      :autosize="{ maxHeight: 60, minHeight: 20 }"
       v-if="select == 1"
     />
     <div v-if="select == 2" style="display:flex;justify-content:flex-start;">

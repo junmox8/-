@@ -3,7 +3,7 @@
     <nut-textarea
       v-model="answer.text"
       readonly
-      style="width:90%"
+      style="width:90%;"
       :autosize="{ maxHeight: 100, minHeight: 20 }"
       v-if="select == 1"
     />

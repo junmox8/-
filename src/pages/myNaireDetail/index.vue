@@ -4,7 +4,7 @@
       <div class="title-1">{{ title }}</div>
       <div class="title-2">{{ introduction }}</div>
     </div>
-    <nut-divider style="width:95%;margin-left:2.5%" dashed
+    <nut-divider style="width:95%;margin-left:2.5%;" dashed
       >问卷详情</nut-divider
     >
     <nut-form>
@@ -93,5 +93,8 @@ export default {
   font-size: 14px;
   font-weight: 500;
   color: #696969;
+}
+.nut-textarea__textarea {
+  color: #999999;
 }
 </style>
