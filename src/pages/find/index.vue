@@ -28,6 +28,7 @@
           :location="item.location"
           :title="item.title"
           :time="item.startTime + '-' + item.endTime"
+          :chaoguo="item.chaoguo"
         ></zhaomu>
         <nut-empty
           :style="{ display: zhaomu.length == 0 ? 'block' : 'none' }"
@@ -39,6 +40,7 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
 import { useStore } from "../../stores/index";
 import zhaomu from "../../component/zhaomu.vue";
 import wenjuan from "../../component/wenjuan.vue";
@@ -99,6 +101,12 @@ export default {
         params: null,
         showLoading: false
       });
+      for (let item of result3.data) {
+        const time = dayjs().format("YYYY-MM-DD HH:mm:ss");
+        item.chaoguo = 0;
+        if (time > item.endTime) item.chaoguo = 2;
+        if (time < item.startTime) item.chaoguo = 1;
+      }
       zhaomu.value = result3.data;
     };
     return {

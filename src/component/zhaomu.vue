@@ -27,16 +27,11 @@
 <script>
 import { ref } from "vue";
 import Taro from "@tarojs/taro";
-import dayjs from "dayjs";
 export default {
-  props: ["img", "id", "location", "title", "time"],
-  created() {
-    const time = dayjs().format("YYYY-MM-DD HH:mm:ss");
-    if (time > this.time.substring(20, this.time.length)) this.chaoguo = 2;
-    if (time < this.time.substring(0, 20)) this.chaoguo = 1;
-  },
+  props: ["img", "id", "location", "title", "time", "chaoguo"],
+  created() {},
   setup(props) {
-    let chaoguo = ref(0); //时间状态0 进行中 1 未开始 2 已截止
+    //时间状态0 进行中 1 未开始 2 已截止
     let jumpToDetail = () => {
       Taro.navigateTo({
         url:
@@ -44,7 +39,6 @@ export default {
       });
     };
     return {
-      chaoguo,
       jumpToDetail
     };
   }
