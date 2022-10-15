@@ -64,7 +64,6 @@ export default {
       url: "/volunteer/front/recruit/getApplies"
     });
     this.list = result.data ? result.data : [];
-    console.log(result);
   },
   setup() {
     const list = ref([]);

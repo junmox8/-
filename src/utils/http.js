@@ -62,7 +62,7 @@ const send = async (url, data, method) => {
       }
     });
     if (code !== 200) {
-      if (frontMsg === "身份认证过期,请重新登录") {
+      if (frontMsg === "身份认证过期,请重新登录" || frontMsg == "请重新登录") {
         Taro.removeStorageSync("token");
       }
       Taro.showToast({

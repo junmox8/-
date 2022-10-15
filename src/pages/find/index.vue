@@ -64,6 +64,7 @@ export default {
       showLoading: true
     });
     let store = useStore();
+    store.clearArr();
     if (result2.data)
       result2.data.forEach(item => {
         store.addArr(item.questionnaireId);
@@ -73,6 +74,12 @@ export default {
       params: null,
       showLoading: false
     });
+    for (let item of result3.data) {
+      const time = dayjs().format("YYYY-MM-DD HH:mm:ss");
+      item.chaoguo = 0;
+      if (time > item.endTime) item.chaoguo = 2;
+      if (time < item.startTime) item.chaoguo = 1;
+    }
     this.zhaomu = result3.data;
   },
   setup(props, context) {

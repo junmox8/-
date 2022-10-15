@@ -100,11 +100,11 @@ export default {
       const result2 = await get({
         url: "/volunteer/front/answer/count"
       });
-      this.naireNumber = result2.data;
+      this.naireNumber = result2.data ? result2.data : 0;
       const result3 = await get({
         url: "/volunteer/front/feedback/getFeedbacks"
       });
-      this.fankuiNumber = result3.data.length;
+      this.fankuiNumber = result3.data.length || 0;
       const result4 = await get({
         url: "/volunteer/front/recruit/getApplies"
       });

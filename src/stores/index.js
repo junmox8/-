@@ -15,6 +15,9 @@ export const useStore = defineStore("main", {
     },
     addArr(num) {
       this.arr = [...this.arr, num];
+    },
+    clearArr() {
+      this.arr = [];
     }
   }
 });

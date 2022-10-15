@@ -35,7 +35,7 @@ export default {
     let jumpToDetail = () => {
       Taro.navigateTo({
         url:
-          "/pages/zhaomudetail/index?id=" + props.id + "&state=" + chaoguo.value
+          "/pages/zhaomudetail/index?id=" + props.id + "&state=" + props.chaoguo
       });
     };
     return {
